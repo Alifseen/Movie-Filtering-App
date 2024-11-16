@@ -1,0 +1,62 @@
+Three types of recommendation systems filtering
+popularity based = what majority of people like
+collaborative = knowing what you like and what users like you like
+content based = similar to content you are interested in.
+
+
+Start by reviewing the data values
+in movies csv we have the budget, genre as a list of dictionaries with id and names, homepage, id of movie, keywords as a list of dictionaries with id and tag name, language, title, overview description, popularity score, production companies as list of dictionary, release date, revenue, runtime, spoken languages as list of dictionaries, vote score, and vote count.
+
+in credits csv share id column with movie csv, with cast and crew as a list of dictionaries
+
+in ratings csv, we have user which also shares movie id with movies csv of the movie they reviewed and has rating given by the user and timestamp.
+
+deepnote is a cloundbased jupyter webapp which has important packages already installed.
+Create an account and workspace
+create a new project
+Each project can have several notebooks associated with the project.
+
+You can write code in codeblocks like in jupyter notebook
+You can add text by adding text blocks
+You can upload files as well
+
+load files
+data = read_csv(csvanme)
+
+data.head()
+
+
+
+Two parts of this project 1. Devloping the model, 2 Connecting the model to the web app
+Give heading calculate weighted rating
+weighted average ensures that a movie that less people voted for is adjusted with movies with ratings by more users. So a movie that got 10/10 rating but has only 3 voters will be adjusted to be compard to movie with 7/10 rating from 3000 users
+WR = (v / (v+m)) * R + (m + (v + m)) * C  (formula from IMDB)
+
+v = number of votes
+m = minimum number of votes requered to by considered
+R = average rating of movie
+C - average rating accross all movies
+
+m = movies[vote count column].quantile(0.9)  0.9 is 90%. So this tells us the average maximum number of votes 90% of the movies got. We will set this as the minimum threshold.
+
+c = movies[rating column].mean()   this gives us the average rating of all movies
+
+now create a new column with weighted rating
+movies.filtered["weighted avg column name"] = movies_filtered.apply(function name, axis=1) (1 is column, 0 is rows)
+
+but define the function before creating a new column that applies the formula above in python
+def function name(df, m=m, C=C)
+
+R = df[rating column]
+v = df[vote count column]
+wr = type the formula above
+
+to avoid division by zero error create filtered dataframe before this function that only includes movies with more votes than minimum threshold
+movies_filtered = movies.copy().loc[movies[vote count column] >= m]
+
+sort the df by the new column
+movies_filtered.sort_values("weighted avg column naem", asceding =false).head(10)
+
+To just see limited number of columns add the column names in double list [[]] before .head
+
+you cna convert the df to dict to be able to serve it to a web app using .to_dict() after .head()
