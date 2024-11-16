@@ -100,4 +100,42 @@ similarity_matrix = linear_kernal(matrix 1, matrix 2)  We will use the same matr
 
 this matrix is a list of list with the same number of columns as rows, comparing each movie with all other movies and returning a coefficient of similarty for it. the higher the coefficient, the more the similarity. 1 means identical, so same movie.
 
-To make this more accurate, we can join the keywords/tags columns with overview column and do the same process on that column.
+To make this more accurate, we can join the keywords/tags and genre columns with overview column and do the same process on that column.
+
+
+
+
+
+
+
+define a function that takes in as argument a movie title and 2nd argument number of movies and returns that many movies similar to the movie title
+
+after storing the title string, set the list in ascending order to see most similar to least, excluding 1
+sorted(matrix[index number of movie title], reverse=True)
+
+We need a way to convert the movie title to the list index to be able to sort the correct list from the matrix
+index_number = dataframename.loc[dataframename["column name with titles"]==movie title variable.index[0]
+
+Similarly we need to be able to identify other movies in the matrix as well. We can do that by locking in their position in the matrix list before sorting it by creating a copy of list and using enumaerate to hard code index to each value. This way even if we sort the list, if movie at position 3 had the highest coefficient, it would still have the hard coded value in column showing positing 3 even if the list is sorted and its index number changes.
+copy_list = list(enumerate(matrix[index_number]))
+
+
+To sort the list by the coefficient we can use lambda function (which is a one liner function) to assign it as key
+sorted(copy_list, key = lambda x: x[1], revers=True)   x[0] is the hard coded index number
+be sure to reassign the sorted list to the copy_list variable to reatin changes
+
+
+next we extract the top 3 most similar movies and store in a new variable using list comprehension
+similar_movie_indices =  [item[0] for item in copy_list[1:4]
+we slice the list to exclude the movie itself (coefficient of 1) so [1:] and since we only want top 3, we end with[1:4], so index position 1,2,3, not 0 or after 3
+
+next, get the title using these indices
+dataframename[column name with title].iloc[similar moview indices]
+This returns a dataframe, you can convert it to a list
+
+add all the lines of code above in the def function and return the list. Be sure to replace the slice with number of movies variable + 1 to slice dynamically
+
+call the function with a movie title and index
+simalar_movies(title, number)
+
+Replace the short movie csv with main movie csv
