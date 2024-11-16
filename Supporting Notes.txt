@@ -87,3 +87,17 @@ Also define column names using another argument: columns=tfdif.get_feature_names
 This matrix has words as columns and rows as movies as said earlier, so each cell stores a number that represents 1. Term frequency: the repetition of the word inside that movies description and 2. Inverse Document: rarity of the word in other movies description. The higher the number, means the higher the rarity, meaning not existing in other movie databases and is more unique to that movie. This is usefult for creating a matrix of cooeffecients to get the overlap created by least rare words
 
 You can get the number of words in the matrix using tfidf_matrix.shape to get the number of columns.
+
+
+
+
+
+
+
+
+sklearn.metrics.pairwise linear_kernel  this is an algorithms
+similarity_matrix = linear_kernal(matrix 1, matrix 2)  We will use the same matrix in both since we are comparing within the matrix, not two matrices
+
+this matrix is a list of list with the same number of columns as rows, comparing each movie with all other movies and returning a coefficient of similarty for it. the higher the coefficient, the more the similarity. 1 means identical, so same movie.
+
+To make this more accurate, we can join the keywords/tags columns with overview column and do the same process on that column.
