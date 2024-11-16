@@ -77,12 +77,12 @@ tfidf = TfidVectorizer(stop_words="english")  ##instantiate, and tell it to reco
 
 movies[descriptiuon column] = movies[description column].fillna("")   this replaces NA values with empty strings since we can only operate on string data type
 
-tfidf_matrix = tfidf.fittransfrom(movies["overview"])  ## This creates a matrix with words in columns and movies in rows
+tfidf_matrix = tfidf.fit_transfrom(movies["overview"])  ## This creates a matrix with words in columns and movies in rows
 
 to display the matrix, convert it to a numpy array, and view as dataframe
-pd.DataFramre(tfidf.toarray())
+pd.DataFramre(tfidf_matrix.toarray())
 
-Also define column names using another argument: columns=tfdif.get_feature_names()
+Also define column names using another argument: columns=tfdif.get_feature_names_out()
 
 This matrix has words as columns and rows as movies as said earlier, so each cell stores a number that represents 1. Term frequency: the repetition of the word inside that movies description and 2. Inverse Document: rarity of the word in other movies description. The higher the number, means the higher the rarity, meaning not existing in other movie databases and is more unique to that movie. This is usefult for creating a matrix of cooeffecients to get the overlap created by least rare words
 
@@ -96,7 +96,7 @@ You can get the number of words in the matrix using tfidf_matrix.shape to get th
 
 
 sklearn.metrics.pairwise linear_kernel  this is an algorithms
-similarity_matrix = linear_kernal(matrix 1, matrix 2)  We will use the same matrix in both since we are comparing within the matrix, not two matrices
+similarity_matrix = linear_kernal(matrix 1, matrix 2)  We will use the same matrix in both since we are comparing within the matrix, not two matrices. We add tfidf_matrix to itself to get the similarity matrix
 
 this matrix is a list of list with the same number of columns as rows, comparing each movie with all other movies and returning a coefficient of similarty for it. the higher the coefficient, the more the similarity. 1 means identical, so same movie.
 
@@ -175,3 +175,6 @@ surprise model_selection
 model_selection.cross_validate(svd instance, dataset, measures= [error types you want to look for]
 RMSE = Root mean square error
 MAE = Mean Absolute error
+
+Link to the Module
+https://deepnote.com/workspace/Learning-Python-e3425071-fe2a-48c7-aa81-1d864adb6e96/project/Module-9-Movie-Recommendation-System-ba33b322-fb9b-4729-b766-5fdef6101926/notebook/Collaborative-based-Filtering-fd0692d7d7834d378a3604302bf26471?utm_source=share-modal&utm_medium=product-shared-content&utm_campaign=notebook&utm_content=ba33b322-fb9b-4729-b766-5fdef6101926
