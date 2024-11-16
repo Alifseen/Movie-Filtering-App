@@ -139,3 +139,39 @@ call the function with a movie title and index
 simalar_movies(title, number)
 
 Replace the short movie csv with main movie csv
+
+
+
+
+
+
+
+Using ML for collaborative filtering to predict a rating from the user based on what other similar users rated it.
+The process is to build dataset to trainset -> train ml model on trainset -> predict
+
+import and load ratings csv
+
+convert data from pandas dataframe to sickit data type
+surprise Dataset, Reader    surprise is a part of sickit learn
+
+reader = Reader(rating df.scale=(1,5))  1,5 becuase the rating ranges from 1 star to 5
+dataset = Dataset.load_from_df(rating df, reading)
+
+
+build trainset
+trainset = dataset.build_full_trainset()
+optional: you can view it by converting it to list(trainset.all_rating())
+
+
+train the ml Model (Singular value decompostion model )
+surprise SVD
+svd = SVD()
+svd.fit(trainset)
+svd.predict(user id, movie id)
+use .est at the end to only get the prediction value. Try on a known value first to see acuracy
+
+validate model to see how accurate it is
+surprise model_selection
+model_selection.cross_validate(svd instance, dataset, measures= [error types you want to look for]
+RMSE = Root mean square error
+MAE = Mean Absolute error
