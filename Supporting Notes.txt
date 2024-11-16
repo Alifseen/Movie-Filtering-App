@@ -60,3 +60,30 @@ movies_filtered.sort_values("weighted avg column naem", asceding =false).head(10
 To just see limited number of columns add the column names in double list [[]] before .head
 
 you cna convert the df to dict to be able to serve it to a web app using .to_dict() after .head()
+
+
+
+
+
+import pandas and load data
+upload smaller version of movies csv file
+read_csv(csv, sep=";")
+
+compare descriptions
+
+sklearn.feature_extraction.text import TfidVectorizer
+
+tfidf = TfidVectorizer(stop_words="english")  ##instantiate, and tell it to recognize stop words
+
+movies[descriptiuon column] = movies[description column].fillna("")   this replaces NA values with empty strings since we can only operate on string data type
+
+tfidf_matrix = tfidf.fittransfrom(movies["overview"])  ## This creates a matrix with words in columns and movies in rows
+
+to display the matrix, convert it to a numpy array, and view as dataframe
+pd.DataFramre(tfidf.toarray())
+
+Also define column names using another argument: columns=tfdif.get_feature_names()
+
+This matrix has words as columns and rows as movies as said earlier, so each cell stores a number that represents 1. Term frequency: the repetition of the word inside that movies description and 2. Inverse Document: rarity of the word in other movies description. The higher the number, means the higher the rarity, meaning not existing in other movie databases and is more unique to that movie. This is usefult for creating a matrix of cooeffecients to get the overlap created by least rare words
+
+You can get the number of words in the matrix using tfidf_matrix.shape to get the number of columns.
