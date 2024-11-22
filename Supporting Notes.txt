@@ -11,7 +11,7 @@ in credits csv share id column with movie csv, with cast and crew as a list of d
 
 in ratings csv, we have user which also shares movie id with movies csv of the movie they reviewed and has rating given by the user and timestamp.
 
-deepnote is a cloundbased jupyter webapp which has important packages already installed.
+deepnote is a cloud based jupyter webapp which has important packages already installed.
 Create an account and workspace
 create a new project
 Each project can have several notebooks associated with the project.
